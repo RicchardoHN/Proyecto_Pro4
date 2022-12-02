@@ -1,4 +1,10 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {PermisoHora} from './permiso-hora.model';
+import {PermisoDia} from './permiso-dia.model';
+import {Marcar} from './marcar.model';
+import {Vacaciones} from './vacaciones.model';
+import {Turnos} from './turnos.model';
+import {Departamento} from './departamento.model';
 
 @model()
 export class Empleado extends Entity {
@@ -27,6 +33,23 @@ export class Empleado extends Entity {
   })
   departamento: string;
 
+  @belongsTo(() => PermisoHora)
+  permisoHoraId: string;
+
+  @belongsTo(() => PermisoDia)
+  permisoDiaId: string;
+
+  @belongsTo(() => Marcar)
+  marcarId: string;
+
+  @belongsTo(() => Vacaciones)
+  vacacionesId: string;
+
+  @belongsTo(() => Turnos)
+  turnosId: string;
+
+  @hasMany(() => Departamento)
+  departamentos: Departamento[];
 
   constructor(data?: Partial<Empleado>) {
     super(data);
